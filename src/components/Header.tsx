@@ -16,7 +16,13 @@ const navLinks = [
   { href: "/give", label: "Give" },
 ];
 
-export function Header() {
+export function Header({
+  logoUrl,
+  title = "Team Zion Lipa",
+}: {
+  logoUrl?: string | null;
+  title?: string;
+}) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -48,9 +54,17 @@ export function Header() {
       <Container className="flex h-16 items-center justify-between">
         <Link
           href="/"
+          aria-label={title}
           className="flex items-center gap-2 font-display text-xl font-bold text-brand-900"
         >
-          Team Zion <span className="text-gold-600">Lipa</span>
+          {logoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={logoUrl} alt={title} className="h-9 w-auto" />
+          ) : (
+            <>
+              Team Zion <span className="text-gold-600">Lipa</span>
+            </>
+          )}
         </Link>
 
         <nav

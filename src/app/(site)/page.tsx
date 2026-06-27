@@ -5,6 +5,7 @@ import { Section, SectionHeading } from "@/components/Section";
 import { ButtonLink } from "@/components/Button";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { EventCard } from "@/components/EventCard";
+import { GallerySection } from "@/components/GallerySection";
 import {
   ClockIcon,
   ChevronRightIcon,
@@ -278,6 +279,13 @@ export default async function HomePage() {
             ))}
           </div>
         </Section>
+      )}
+
+      {/* Photo gallery (shows only when images are added) */}
+      {settings?.gallery && settings.gallery.length > 0 && (
+        <div className="bg-slate-50">
+          <GallerySection images={settings.gallery} />
+        </div>
       )}
 
       {/* Connect CTA */}

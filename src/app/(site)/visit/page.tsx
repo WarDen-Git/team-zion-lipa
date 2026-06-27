@@ -21,6 +21,33 @@ export default async function VisitPage() {
           { day: "Sunday", time: "4:00 PM", label: "Afternoon Service" },
         ];
 
+  const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    settings?.address || "Team Zion Lipa, Lipa City, Batangas",
+  )}`;
+
+  const faqs = [
+    {
+      q: "Do I need to be a member or bring anything?",
+      a: "Not at all! Just come as you are. There's nothing you need to bring or prepare — we're simply glad you're here.",
+    },
+    {
+      q: "What should I wear?",
+      a: "Whatever's comfortable. Most people dress casually — there's no dress code.",
+    },
+    {
+      q: "How long is a service?",
+      a: "Services run about two hours, including worship and the message.",
+    },
+    {
+      q: "Is there anything for my kids?",
+      a: "Yes — we provide a safe, fun environment for children during the service.",
+    },
+    {
+      q: "Where do I park?",
+      a: "Parking is available on-site, and a friendly team will help you find your way in.",
+    },
+  ];
+
   return (
     <>
       <PageHeader
@@ -95,6 +122,36 @@ export default async function VisitPage() {
                 </div>
               )}
             </div>
+            <ButtonLink
+              href={directionsUrl}
+              variant="ghost"
+              className="mt-4 ring-1 ring-brand-200"
+            >
+              <PinIcon width={18} height={18} />
+              Get Directions
+            </ButtonLink>
+          </div>
+        </div>
+
+        {/* FAQ */}
+        <div className="mt-16 max-w-3xl">
+          <h2 className="font-display text-2xl font-semibold text-brand-900">
+            Frequently Asked Questions
+          </h2>
+          <div className="mt-6 divide-y divide-slate-100 rounded-2xl ring-1 ring-slate-100">
+            {faqs.map((item) => (
+              <details key={item.q} className="group p-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-slate-900">
+                  {item.q}
+                  <span className="ml-4 text-brand-500 transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                  {item.a}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </Section>

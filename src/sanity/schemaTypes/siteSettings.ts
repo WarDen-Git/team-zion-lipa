@@ -34,6 +34,15 @@ export const siteSettings = defineType({
         "Optional. A wide photo (e.g. worship/congregation) shown behind the home page hero. Falls back to a gradient if empty.",
     }),
     defineField({
+      name: "gallery",
+      title: "Photo Gallery",
+      type: "array",
+      of: [{ type: "image", options: { hotspot: true } }],
+      description:
+        "Optional. Photos of church life shown in a gallery on the home page. Add 6 or more for the best look.",
+      options: { layout: "grid" },
+    }),
+    defineField({
       name: "address",
       title: "Address",
       type: "text",

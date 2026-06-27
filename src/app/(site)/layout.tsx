@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { StructuredData } from "@/components/StructuredData";
+import { urlForImage } from "@/sanity/image";
 import { getSettings, getActiveAnnouncement } from "@/sanity/queries";
 
 export default async function SiteLayout({
@@ -14,6 +15,10 @@ export default async function SiteLayout({
     getActiveAnnouncement(),
   ]);
 
+  const logoUrl = settings?.logo
+    ? urlForImage(settings.logo).height(72).url()
+    : null;
+
   return (
     <>
       <a href="#content" className="skip-link">
@@ -21,7 +26,7 @@ export default async function SiteLayout({
       </a>
       <StructuredData settings={settings} />
       <AnnouncementBar announcement={announcement} />
-      <Header />
+      <Header logoUrl={logoUrl} title={settings?.title || "Team Zion Lipa"} />
       <main id="content" className="min-h-[60vh]">
         {children}
       </main>

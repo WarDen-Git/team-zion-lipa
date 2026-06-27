@@ -31,7 +31,9 @@ export type ServiceTime = { day?: string; time?: string; label?: string };
 export type SiteSettings = {
   title?: string;
   tagline?: string;
+  logo?: import("sanity").Image;
   heroImage?: import("sanity").Image;
+  gallery?: import("sanity").Image[];
   address?: string;
   mapEmbedUrl?: string;
   serviceTimes?: ServiceTime[];
