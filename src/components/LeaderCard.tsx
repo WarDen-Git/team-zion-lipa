@@ -35,7 +35,7 @@ export function LeaderCard({ leader }: { leader: Leader }) {
         {leader.name}
       </h3>
       {leader.role && (
-        <p className="mt-0.5 text-sm font-medium text-gold-600">{leader.role}</p>
+        <p className="mt-0.5 text-sm font-medium text-gold-700">{leader.role}</p>
       )}
       {leader.bio && (
         <p className="mt-2 text-sm leading-relaxed text-slate-600">

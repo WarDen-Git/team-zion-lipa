@@ -41,21 +41,41 @@ export function ContactForm() {
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium">Name</label>
-          <input name="name" required className={inputClass} />
+          <label htmlFor="cf-name" className="mb-1 block text-sm font-medium">
+            Name
+          </label>
+          <input id="cf-name" name="name" required className={inputClass} />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium">Email</label>
-          <input name="email" type="email" required className={inputClass} />
+          <label htmlFor="cf-email" className="mb-1 block text-sm font-medium">
+            Email
+          </label>
+          <input
+            id="cf-email"
+            name="email"
+            type="email"
+            required
+            className={inputClass}
+          />
         </div>
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium">Phone (optional)</label>
-        <input name="phone" className={inputClass} />
+        <label htmlFor="cf-phone" className="mb-1 block text-sm font-medium">
+          Phone (optional)
+        </label>
+        <input id="cf-phone" name="phone" className={inputClass} />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium">Message</label>
-        <textarea name="message" required rows={5} className={inputClass} />
+        <label htmlFor="cf-message" className="mb-1 block text-sm font-medium">
+          Message
+        </label>
+        <textarea
+          id="cf-message"
+          name="message"
+          required
+          rows={5}
+          className={inputClass}
+        />
       </div>
 
       <label className="flex items-start gap-2 text-xs text-slate-600">

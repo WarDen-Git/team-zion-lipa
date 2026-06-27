@@ -235,7 +235,7 @@ export default async function HomePage() {
               <VideoEmbed url={latestSermon.videoUrl} title={latestSermon.title} />
               <div>
                 {latestSermon.series && (
-                  <span className="text-xs font-semibold uppercase tracking-wide text-gold-600">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-gold-700">
                     {latestSermon.series}
                   </span>
                 )}

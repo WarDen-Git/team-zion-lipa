@@ -62,7 +62,7 @@ export function Header({
             <img src={logoUrl} alt={title} className="h-9 w-auto" />
           ) : (
             <>
-              Team Zion <span className="text-gold-600">Lipa</span>
+              Team Zion <span className="text-gold-700">Lipa</span>
             </>
           )}
         </Link>

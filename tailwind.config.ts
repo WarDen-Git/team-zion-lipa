@@ -26,6 +26,8 @@ const config: Config = {
           400: "#f3c969",
           500: "#e7b13e",
           600: "#cf962a",
+          // Darker, WCAG-AA accessible gold for small text on light backgrounds
+          700: "#8a5e12",
         },
       },
       fontFamily: {

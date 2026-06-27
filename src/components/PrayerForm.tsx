@@ -40,20 +40,28 @@ export function PrayerForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label className="mb-1 block text-sm font-medium">Name (optional)</label>
-        <input name="name" className={inputClass} />
+        <label htmlFor="pf-name" className="mb-1 block text-sm font-medium">
+          Name (optional)
+        </label>
+        <input id="pf-name" name="name" className={inputClass} />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium">
+        <label htmlFor="pf-email" className="mb-1 block text-sm font-medium">
           Email (optional, if you&apos;d like a reply)
         </label>
-        <input name="email" type="email" className={inputClass} />
+        <input id="pf-email" name="email" type="email" className={inputClass} />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium">
+        <label htmlFor="pf-request" className="mb-1 block text-sm font-medium">
           How can we pray for you?
         </label>
-        <textarea name="request" required rows={5} className={inputClass} />
+        <textarea
+          id="pf-request"
+          name="request"
+          required
+          rows={5}
+          className={inputClass}
+        />
       </div>
 
       <label className="flex items-start gap-2 text-xs text-slate-600">
@@ -70,7 +78,7 @@ export function PrayerForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="rounded-full bg-gold-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-gold-500 disabled:opacity-60"
+        className="rounded-full bg-gold-500 px-6 py-2.5 text-sm font-semibold text-brand-950 hover:bg-gold-400 disabled:opacity-60"
       >
         {status === "sending" ? "Sending…" : "Submit prayer request"}
       </button>

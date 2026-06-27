@@ -36,7 +36,7 @@ export function Footer({ settings }: { settings: SiteSettings | null }) {
       <Container className="grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <p className="font-display text-xl font-bold text-brand-900">
-            Team Zion <span className="text-gold-600">Lipa</span>
+            Team Zion <span className="text-gold-700">Lipa</span>
           </p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-slate-600">
             {settings?.tagline ?? "A Christ-centered church in Lipa City."}

@@ -43,7 +43,7 @@ export function SermonCard({ sermon }: { sermon: Sermon }) {
       </div>
       <div className="flex flex-1 flex-col p-5">
         {sermon.series && (
-          <span className="text-xs font-semibold uppercase tracking-wide text-gold-600">
+          <span className="text-xs font-semibold uppercase tracking-wide text-gold-700">
             {sermon.series}
           </span>
         )}

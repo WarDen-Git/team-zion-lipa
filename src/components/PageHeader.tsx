@@ -18,7 +18,7 @@ export function PageHeader({
       />
       <Container className="relative py-14 sm:py-16">
         {eyebrow && (
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-600">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-700">
             {eyebrow}
           </p>
         )}
