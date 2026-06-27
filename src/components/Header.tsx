@@ -10,6 +10,7 @@ import { MenuIcon, CloseIcon } from "./icons";
 const navLinks = [
   { href: "/about", label: "About" },
   { href: "/visit", label: "Visit" },
+  { href: "/ministries", label: "Ministries" },
   { href: "/sermons", label: "Sermons" },
   { href: "/events", label: "Events" },
   { href: "/connect", label: "Connect" },

@@ -91,6 +91,16 @@ export type Leader = {
   bio?: string;
 };
 
+export type Ministry = {
+  _id: string;
+  name: string;
+  audience?: string;
+  description?: string;
+  schedule?: string;
+  leader?: string;
+  image?: import("sanity").Image;
+};
+
 // ---------------------------------------------------------------------------
 // Queries
 // ---------------------------------------------------------------------------
@@ -119,6 +129,11 @@ export const leadersQuery = groq`
     _id, name, role, photo, bio
   }`;
 
+export const ministriesQuery = groq`
+  *[_type == "ministry"] | order(order asc, name asc) {
+    _id, name, audience, description, schedule, leader, image
+  }`;
+
 // ---------------------------------------------------------------------------
 // Convenience loaders
 // ---------------------------------------------------------------------------
@@ -137,3 +152,6 @@ export const getPage = (slug: string) =>
   sanityFetch<PageDoc | null>(pageBySlugQuery, null, { slug });
 
 export const getLeaders = () => sanityFetch<Leader[]>(leadersQuery, []);
+
+export const getMinistries = () =>
+  sanityFetch<Ministry[]>(ministriesQuery, []);

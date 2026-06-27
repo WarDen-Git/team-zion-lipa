@@ -130,6 +130,37 @@ const leaderDocs = leaders.map(([name, role], i) => ({
   order: i,
 }));
 
+const ministryDocs = [
+  {
+    name: "Women's Fellowship",
+    audience: "For women",
+    description:
+      "A warm community where women grow in faith, build genuine friendships, and encourage one another in everyday life.",
+    schedule: "Schedule TBA",
+  },
+  {
+    name: "Men's Fellowship",
+    audience: "For men",
+    description:
+      "Men sharpening one another to live with purpose, integrity, and boldness for Christ.",
+    schedule: "Schedule TBA",
+  },
+  {
+    name: "Youth Gathering",
+    audience: "For students",
+    description:
+      "A vibrant, fun space for young people to encounter God, ask questions, and build lasting friendships.",
+    schedule: "Schedule TBA",
+  },
+  {
+    name: "Kids Ministry",
+    audience: "For children",
+    description:
+      "A safe, joyful environment where children learn about Jesus through worship, stories, and play during our services.",
+    schedule: "Sundays during service",
+  },
+].map((m, i) => ({ _id: `ministry-${i}`, _type: "ministry", order: i, ...m }));
+
 async function run() {
   console.log("Importing Site Settings...");
   await client.createOrReplace(siteSettings);
@@ -137,6 +168,10 @@ async function run() {
   await client.createOrReplace(aboutPage);
   console.log(`Importing ${leaderDocs.length} leaders...`);
   for (const doc of leaderDocs) {
+    await client.createOrReplace(doc);
+  }
+  console.log(`Importing ${ministryDocs.length} ministries...`);
+  for (const doc of ministryDocs) {
     await client.createOrReplace(doc);
   }
   console.log("\n✅ Done. Published content for TEAM Lipa (Zion Point Church).");
