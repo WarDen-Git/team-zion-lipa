@@ -13,11 +13,69 @@ html {
 
 body {
   @apply bg-white text-slate-800 antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Simple rich-text styling for Sanity Portable Text output */
+/* Offset anchored sections so the sticky header doesn't cover them */
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Accessible, consistent focus ring across all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white rounded-sm;
+}
+
+::selection {
+  background-color: theme("colors.brand.600");
+  color: white;
+}
+
+/* Skip-to-content link (visible only when focused) */
+.skip-link {
+  @apply sr-only;
+}
+.skip-link:focus {
+  @apply not-sr-only fixed left-4 top-4 z-[60] rounded-md bg-brand-700 px-4 py-2 text-sm font-semibold text-white shadow-lg;
+}
+
+/* Subtle entrance animation for sections */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Rich-text styling for Sanity Portable Text output */
 .prose-church h2 {
-  @apply font-display text-2xl font-semibold text-brand-900 mt-8 mb-3;
+  @apply font-display text-2xl font-semibold text-brand-900 mt-10 mb-3;
 }
 .prose-church h3 {
   @apply font-display text-xl font-semibold text-brand-800 mt-6 mb-2;
@@ -26,8 +84,11 @@ body {
   @apply mb-4 leading-relaxed text-slate-700;
 }
 .prose-church a {
-  @apply text-brand-600 underline;
+  @apply text-brand-600 underline underline-offset-2 hover:text-brand-700;
 }
 .prose-church ul {
-  @apply list-disc pl-6 mb-4 space-y-1 text-slate-700;
+  @apply list-disc pl-6 mb-4 space-y-1.5 text-slate-700 marker:text-gold-500;
+}
+.prose-church strong {
+  @apply font-semibold text-slate-900;
 }

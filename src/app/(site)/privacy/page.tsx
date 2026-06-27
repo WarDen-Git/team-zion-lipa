@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/Container";
+import { Section } from "@/components/Section";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -8,11 +9,10 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <Container className="py-16">
-      <div className="prose-church max-w-3xl">
-        <h1 className="font-display text-4xl font-bold text-brand-900">
-          Privacy Policy
-        </h1>
+    <>
+      <PageHeader title="Privacy Policy" />
+      <Section>
+        <div className="prose-church max-w-3xl">
         <p className="text-sm text-slate-500">
           Last updated: June 2026. Please review with legal counsel before
           launch.
@@ -57,7 +57,8 @@ export default function PrivacyPage() {
           Questions about this policy? Please reach out through our{" "}
           <a href="/connect">Connect page</a>.
         </p>
-      </div>
-    </Container>
+        </div>
+      </Section>
+    </>
   );
 }

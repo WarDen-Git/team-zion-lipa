@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
@@ -31,6 +31,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_PH",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1a2c88",
 };
 
 export default function RootLayout({

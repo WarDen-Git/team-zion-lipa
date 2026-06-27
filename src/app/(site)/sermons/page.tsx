@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/Container";
+import { Section } from "@/components/Section";
+import { PageHeader } from "@/components/PageHeader";
 import { SermonCard } from "@/components/SermonCard";
+import { PlayIcon } from "@/components/icons";
 import { getSermons } from "@/sanity/queries";
 
 export const metadata: Metadata = {
@@ -12,24 +14,34 @@ export default async function SermonsPage() {
   const sermons = await getSermons();
 
   return (
-    <Container className="py-16">
-      <h1 className="font-display text-4xl font-bold text-brand-900">Sermons</h1>
-      <p className="mt-3 max-w-2xl text-lg text-slate-700">
-        Catch up on recent messages, or revisit a favorite.
-      </p>
-
-      {sermons.length === 0 ? (
-        <div className="mt-10 rounded-xl bg-slate-50 p-10 text-center text-slate-500">
-          No sermons yet. Add them in the Studio — just paste a YouTube or
-          Facebook link.
-        </div>
-      ) : (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {sermons.map((s) => (
-            <SermonCard key={s._id} sermon={s} />
-          ))}
-        </div>
-      )}
-    </Container>
+    <>
+      <PageHeader
+        eyebrow="Messages"
+        title="Sermons"
+        description="Catch up on recent messages, or revisit a favorite."
+      />
+      <Section>
+        {sermons.length === 0 ? (
+          <div className="flex flex-col items-center rounded-2xl bg-slate-50 p-12 text-center ring-1 ring-slate-100">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-100 text-brand-600">
+              <PlayIcon width={26} height={26} />
+            </span>
+            <p className="mt-4 font-display text-lg font-semibold text-brand-900">
+              Sermons coming soon
+            </p>
+            <p className="mt-1 max-w-md text-sm text-slate-500">
+              We&apos;re preparing our message library. Check back soon, or
+              follow us on social media to catch our latest services.
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {sermons.map((s) => (
+              <SermonCard key={s._id} sermon={s} />
+            ))}
+          </div>
+        )}
+      </Section>
+    </>
   );
 }

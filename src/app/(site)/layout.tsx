@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
+import { StructuredData } from "@/components/StructuredData";
 import { getSettings, getActiveAnnouncement } from "@/sanity/queries";
 
 export default async function SiteLayout({
@@ -15,9 +16,15 @@ export default async function SiteLayout({
 
   return (
     <>
+      <a href="#content" className="skip-link">
+        Skip to content
+      </a>
+      <StructuredData settings={settings} />
       <AnnouncementBar announcement={announcement} />
       <Header />
-      <main className="min-h-[60vh]">{children}</main>
+      <main id="content" className="min-h-[60vh]">
+        {children}
+      </main>
       <Footer settings={settings} />
     </>
   );

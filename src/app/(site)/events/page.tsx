@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/Container";
+import { Section } from "@/components/Section";
+import { PageHeader } from "@/components/PageHeader";
 import { EventCard } from "@/components/EventCard";
+import { ClockIcon } from "@/components/icons";
 import { getUpcomingEvents } from "@/sanity/queries";
 
 export const metadata: Metadata = {
@@ -12,24 +14,34 @@ export default async function EventsPage() {
   const events = await getUpcomingEvents();
 
   return (
-    <Container className="py-16">
-      <h1 className="font-display text-4xl font-bold text-brand-900">Events</h1>
-      <p className="mt-3 max-w-2xl text-lg text-slate-700">
-        There&apos;s always something happening. Join us!
-      </p>
-
-      {events.length === 0 ? (
-        <div className="mt-10 rounded-xl bg-slate-50 p-10 text-center text-slate-500">
-          No upcoming events right now. Check back soon, or add one in the
-          Studio.
-        </div>
-      ) : (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {events.map((e) => (
-            <EventCard key={e._id} event={e} />
-          ))}
-        </div>
-      )}
-    </Container>
+    <>
+      <PageHeader
+        eyebrow="What's on"
+        title="Events"
+        description="There's always something happening. Join us!"
+      />
+      <Section>
+        {events.length === 0 ? (
+          <div className="flex flex-col items-center rounded-2xl bg-slate-50 p-12 text-center ring-1 ring-slate-100">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-100 text-brand-600">
+              <ClockIcon width={26} height={26} />
+            </span>
+            <p className="mt-4 font-display text-lg font-semibold text-brand-900">
+              No upcoming events right now
+            </p>
+            <p className="mt-1 max-w-md text-sm text-slate-500">
+              Check back soon — we&apos;d love to see you at our next gathering.
+              In the meantime, join us this Sunday!
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {events.map((e) => (
+              <EventCard key={e._id} event={e} />
+            ))}
+          </div>
+        )}
+      </Section>
+    </>
   );
 }
