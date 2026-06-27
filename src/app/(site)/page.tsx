@@ -15,10 +15,13 @@ export default async function HomePage() {
   ]);
 
   const latestSermon = sermons[0];
-  const serviceTimes =
+  const allTimes =
     settings?.serviceTimes && settings.serviceTimes.length > 0
       ? settings.serviceTimes
       : [{ day: "Sunday", time: "9:00 AM & 4:00 PM", label: "Worship Service" }];
+  // On the landing page show only services with a concrete time (skip "TBA").
+  const timed = allTimes.filter((s) => s.time && !/tba/i.test(s.time));
+  const serviceTimes = (timed.length > 0 ? timed : allTimes).slice(0, 3);
 
   return (
     <>
@@ -57,16 +60,27 @@ export default async function HomePage() {
               Watch a Message
             </ButtonLink>
           </div>
+          <a
+            href="#welcome"
+            aria-label="Scroll down"
+            className="mt-16 hidden justify-center text-brand-200/70 transition-colors hover:text-white sm:flex"
+          >
+            <ChevronRightIcon
+              width={28}
+              height={28}
+              className="rotate-90 animate-bounce"
+            />
+          </a>
         </Container>
       </section>
 
       {/* Service times */}
-      <div className="border-b border-slate-100 bg-white">
-        <Container className="grid gap-4 py-10 sm:grid-cols-3">
-          {serviceTimes.slice(0, 3).map((s, i) => (
+      <div id="welcome" className="border-b border-slate-100 bg-white">
+        <Container className="flex flex-col gap-4 py-10 sm:flex-row sm:flex-wrap sm:justify-center">
+          {serviceTimes.map((s, i) => (
             <div
               key={i}
-              className="flex items-center gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-100"
+              className="flex flex-1 items-center gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-100 sm:max-w-xs"
             >
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                 <ClockIcon width={22} height={22} />

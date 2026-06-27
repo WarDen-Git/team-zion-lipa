@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
 import { EventCard } from "@/components/EventCard";
+import { ButtonLink } from "@/components/Button";
 import { ClockIcon } from "@/components/icons";
 import { getUpcomingEvents } from "@/sanity/queries";
 
@@ -33,6 +34,9 @@ export default async function EventsPage() {
               Check back soon — we&apos;d love to see you at our next gathering.
               In the meantime, join us this Sunday!
             </p>
+            <ButtonLink href="/visit" className="mt-6">
+              Plan Your Visit
+            </ButtonLink>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

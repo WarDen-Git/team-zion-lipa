@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
 import { SermonCard } from "@/components/SermonCard";
+import { ButtonLink } from "@/components/Button";
 import { PlayIcon } from "@/components/icons";
-import { getSermons } from "@/sanity/queries";
+import { getSermons, getSettings } from "@/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Sermons",
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function SermonsPage() {
-  const sermons = await getSermons();
+  const [sermons, settings] = await Promise.all([getSermons(), getSettings()]);
+  const watchUrl = settings?.social?.youtube || settings?.social?.facebook;
 
   return (
     <>
@@ -33,6 +35,12 @@ export default async function SermonsPage() {
               We&apos;re preparing our message library. Check back soon, or
               follow us on social media to catch our latest services.
             </p>
+            {watchUrl && (
+              <ButtonLink href={watchUrl} className="mt-6">
+                <PlayIcon width={18} height={18} />
+                Watch on {settings?.social?.youtube ? "YouTube" : "Facebook"}
+              </ButtonLink>
+            )}
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
