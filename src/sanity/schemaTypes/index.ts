@@ -4,7 +4,8 @@ import { sermon } from "./sermon";
 import { event } from "./event";
 import { announcement } from "./announcement";
 import { page } from "./page";
+import { leader } from "./leader";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [siteSettings, sermon, event, announcement, page],
+  types: [siteSettings, sermon, event, announcement, page, leader],
 };

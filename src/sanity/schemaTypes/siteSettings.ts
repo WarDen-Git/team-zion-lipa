@@ -26,6 +26,14 @@ export const siteSettings = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: "heroImage",
+      title: "Home Hero Background Image",
+      type: "image",
+      options: { hotspot: true },
+      description:
+        "Optional. A wide photo (e.g. worship/congregation) shown behind the home page hero. Falls back to a gradient if empty.",
+    }),
+    defineField({
       name: "address",
       title: "Address",
       type: "text",

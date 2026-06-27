@@ -86,6 +86,36 @@ export const InstagramIcon = (p: IconProps) => (
   </svg>
 );
 
+export const HeartIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M12 20s-7-4.5-9.5-9A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9Z" />
+  </svg>
+);
+
+export const BookIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z" />
+    <path d="M19 19H6a2 2 0 0 0-2 2" />
+  </svg>
+);
+
+export const UsersIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="9" cy="8" r="3" />
+    <path d="M3 20a6 6 0 0 1 12 0" />
+    <path d="M16 5a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6" />
+  </svg>
+);
+
+export const HandHeartIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M11 14h3a2 2 0 0 0 0-4H9l-3 2" />
+    <path d="M3 13l3-2v8H3z" />
+    <path d="M14 18l5-3a1.8 1.8 0 0 0-2-3l-2 1" />
+    <path d="M14.5 6.5a2 2 0 0 1 3-2.6 2 2 0 0 1 3 2.6c-.8 1.4-3 2.5-3 2.5s-2.2-1.1-3-2.5Z" />
+  </svg>
+);
+
 export const TikTokIcon = (p: IconProps) => (
   <svg {...base({ ...p, fill: "currentColor", stroke: "none" })}>
     <path d="M16.5 3c.3 2.1 1.5 3.4 3.5 3.6V9c-1.3.1-2.5-.3-3.5-1v6.2a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v2.5a3.2 3.2 0 1 0 2.2 3V3h2.6Z" />

@@ -117,21 +117,28 @@ const aboutPage = {
         "that same mission: to be a place where lives are transformed by Jesus and " +
         "where everyone can belong.",
     ),
-    block("lead-h", "h2", "Our Leadership"),
-    ...leaders.map(([name, role], i) =>
-      block(`lead-${i}`, "normal", `${name} — ${role}`, {
-        listItem: "bullet",
-        level: 1,
-      }),
-    ),
+    // Leadership is rendered as photo cards from "leader" documents (below).
   ],
 };
+
+// Leader documents (deterministic _id so re-runs update instead of duplicating).
+const leaderDocs = leaders.map(([name, role], i) => ({
+  _id: `leader-${i}`,
+  _type: "leader",
+  name,
+  role,
+  order: i,
+}));
 
 async function run() {
   console.log("Importing Site Settings...");
   await client.createOrReplace(siteSettings);
   console.log("Importing About page...");
   await client.createOrReplace(aboutPage);
+  console.log(`Importing ${leaderDocs.length} leaders...`);
+  for (const doc of leaderDocs) {
+    await client.createOrReplace(doc);
+  }
   console.log("\n✅ Done. Published content for TEAM Lipa (Zion Point Church).");
   console.log("Live site should update within ~60 seconds.");
 }

@@ -1,11 +1,44 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/Container";
 import { Section, SectionHeading } from "@/components/Section";
 import { ButtonLink } from "@/components/Button";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { EventCard } from "@/components/EventCard";
-import { ClockIcon, ChevronRightIcon, PlayIcon } from "@/components/icons";
+import {
+  ClockIcon,
+  ChevronRightIcon,
+  PlayIcon,
+  HeartIcon,
+  BookIcon,
+  UsersIcon,
+  HandHeartIcon,
+} from "@/components/icons";
+import { urlForImage } from "@/sanity/image";
 import { getSettings, getSermons, getUpcomingEvents } from "@/sanity/queries";
+
+const values = [
+  {
+    Icon: HeartIcon,
+    title: "Authentic Worship",
+    text: "We gather to encounter God through heartfelt worship and prayer.",
+  },
+  {
+    Icon: BookIcon,
+    title: "Biblical Teaching",
+    text: "Practical, Christ-centered messages rooted in God's Word.",
+  },
+  {
+    Icon: UsersIcon,
+    title: "Genuine Community",
+    text: "Real friendships and small groups where everyone belongs.",
+  },
+  {
+    Icon: HandHeartIcon,
+    title: "Serving Others",
+    text: "Loving Lipa City and beyond through compassion and outreach.",
+  },
+];
 
 export default async function HomePage() {
   const [settings, sermons, events] = await Promise.all([
@@ -23,15 +56,37 @@ export default async function HomePage() {
   const timed = allTimes.filter((s) => s.time && !/tba/i.test(s.time));
   const serviceTimes = (timed.length > 0 ? timed : allTimes).slice(0, 3);
 
+  const heroImg = settings?.heroImage
+    ? urlForImage(settings.heroImage).width(1920).height(1080).fit("crop").url()
+    : null;
+
   return (
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-brand-900 text-white">
-        {/* decorative gradients */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-800 via-brand-900 to-brand-950"
-        />
+        {/* optional background photo */}
+        {heroImg && (
+          <>
+            <Image
+              src={heroImg}
+              alt=""
+              fill
+              priority
+              className="object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-brand-950/70"
+            />
+          </>
+        )}
+        {/* decorative gradients (also serve as fallback when no photo) */}
+        {!heroImg && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-800 via-brand-900 to-brand-950"
+          />
+        )}
         <div
           aria-hidden
           className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl"
@@ -125,6 +180,35 @@ export default async function HomePage() {
               </li>
             ))}
           </ul>
+        </div>
+      </Section>
+
+      {/* What we're about */}
+      <Section>
+        <SectionHeading
+          eyebrow="What we're about"
+          title="Come as you are"
+          description="Whoever you are and wherever you've been, you're welcome here. Here's what you'll find at Team Zion Lipa."
+          align="center"
+          className="mb-12"
+        />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map(({ Icon, title, text }) => (
+            <div
+              key={title}
+              className="rounded-2xl bg-white p-6 text-center ring-1 ring-slate-100 transition-shadow hover:shadow-md"
+            >
+              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
+                <Icon width={26} height={26} />
+              </span>
+              <h3 className="mt-4 font-display text-lg font-semibold text-brand-900">
+                {title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                {text}
+              </p>
+            </div>
+          ))}
         </div>
       </Section>
 

@@ -30,6 +30,7 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem("sermon").title("Sermons"),
             S.documentTypeListItem("event").title("Events"),
+            S.documentTypeListItem("leader").title("Leaders"),
             S.documentTypeListItem("announcement").title("Announcements"),
             S.documentTypeListItem("page").title("Pages"),
           ]),

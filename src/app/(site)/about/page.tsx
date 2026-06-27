@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Section } from "@/components/Section";
+import { Section, SectionHeading } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
 import { PortableText } from "@/components/PortableText";
-import { getPage } from "@/sanity/queries";
+import { LeaderCard } from "@/components/LeaderCard";
+import { getPage, getLeaders } from "@/sanity/queries";
 
 export const metadata: Metadata = {
   title: "About",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const page = await getPage("about");
+  const [page, leaders] = await Promise.all([getPage("about"), getLeaders()]);
 
   return (
     <>
@@ -38,15 +39,26 @@ export default async function AboutPage() {
               the Bible is God&apos;s Word, that Jesus Christ is our Savior, and
               that everyone is welcome to experience His love and grace.
             </p>
-            <h2>Our Heart</h2>
-            <p>
-              Whether you&apos;re exploring faith for the first time or have
-              walked with God for years, you have a place here. Come as you are —
-              there&apos;s room at the table for you.
-            </p>
           </div>
         )}
       </Section>
+
+      {leaders.length > 0 && (
+        <div className="bg-slate-50">
+          <Section>
+            <SectionHeading
+              eyebrow="Meet the team"
+              title="Our Leadership"
+              description="The pastors and ministers who serve and shepherd our church family."
+            />
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {leaders.map((leader) => (
+                <LeaderCard key={leader._id} leader={leader} />
+              ))}
+            </div>
+          </Section>
+        </div>
+      )}
     </>
   );
 }

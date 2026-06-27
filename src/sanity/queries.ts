@@ -31,6 +31,7 @@ export type ServiceTime = { day?: string; time?: string; label?: string };
 export type SiteSettings = {
   title?: string;
   tagline?: string;
+  heroImage?: import("sanity").Image;
   address?: string;
   mapEmbedUrl?: string;
   serviceTimes?: ServiceTime[];
@@ -80,6 +81,14 @@ export type PageDoc = {
   body?: unknown[];
 };
 
+export type Leader = {
+  _id: string;
+  name: string;
+  role?: string;
+  photo?: import("sanity").Image;
+  bio?: string;
+};
+
 // ---------------------------------------------------------------------------
 // Queries
 // ---------------------------------------------------------------------------
@@ -103,6 +112,11 @@ export const activeAnnouncementQuery = groq`
 export const pageBySlugQuery = groq`
   *[_type == "page" && slug.current == $slug][0] { title, body }`;
 
+export const leadersQuery = groq`
+  *[_type == "leader"] | order(order asc, name asc) {
+    _id, name, role, photo, bio
+  }`;
+
 // ---------------------------------------------------------------------------
 // Convenience loaders
 // ---------------------------------------------------------------------------
@@ -119,3 +133,5 @@ export const getActiveAnnouncement = () =>
 
 export const getPage = (slug: string) =>
   sanityFetch<PageDoc | null>(pageBySlugQuery, null, { slug });
+
+export const getLeaders = () => sanityFetch<Leader[]>(leadersQuery, []);
