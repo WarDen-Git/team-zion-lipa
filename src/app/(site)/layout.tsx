@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
@@ -31,6 +32,7 @@ export default async function SiteLayout({
         {children}
       </main>
       <Footer settings={settings} />
+      <Analytics />
     </>
   );
 }
