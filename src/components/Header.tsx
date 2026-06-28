@@ -55,7 +55,10 @@ export function Header({
       <Container className="flex h-16 items-center justify-between">
         <Link
           href="/"
-          aria-label={title}
+          // Only set aria-label for the image logo (no visible text). For the
+          // text wordmark, the visible text is the accessible name — overriding
+          // it would fail WCAG "Label in Name".
+          aria-label={logoUrl ? title : undefined}
           className="flex items-center gap-2 font-display text-xl font-bold text-brand-900"
         >
           {logoUrl ? (
