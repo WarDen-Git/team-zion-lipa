@@ -31,6 +31,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_PH",
   },
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in Vercel to verify Search Console
+  // (renders <meta name="google-site-verification" ...> when present).
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export const viewport: Viewport = {
