@@ -23,6 +23,17 @@ const components: PortableTextComponents = {
       );
     },
   },
+  marks: {
+    link: ({ value, children }) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        {children}
+      </a>
+    ),
+  },
 };
 
 export function PortableText({ value }: { value: unknown[] }) {
