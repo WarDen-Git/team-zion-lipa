@@ -178,16 +178,27 @@ const ministryDocs = ministries.map(([name, audience, description, leader], i) =
   order: i,
 }));
 
+// Merge-write: only sets the fields we manage, so Studio-managed fields
+// (mapEmbedUrl, logo, heroImage, gallery, leader/ministry photos, liveNow…)
+// are NEVER wiped by an import. Avoids the full-document replace footgun.
+async function setDoc(doc) {
+  const { _id, _type, ...rest } = doc;
+  const fields = Object.fromEntries(
+    Object.entries(rest).filter(([, v]) => v !== undefined),
+  );
+  await client.createIfNotExists({ _id, _type });
+  await client.patch(_id).set(fields).commit();
+}
+
 async function run() {
-  console.log("Importing Site Settings...");
-  await client.createOrReplace(siteSettings);
+  console.log("Importing Site Settings (merge)...");
+  await setDoc(siteSettings);
   console.log("Importing About page...");
-  await client.createOrReplace(aboutPage);
+  await setDoc(aboutPage);
   console.log(`Importing ${leaderDocs.length} leaders...`);
-  for (const doc of leaderDocs) await client.createOrReplace(doc);
+  for (const doc of leaderDocs) await setDoc(doc);
   console.log(`Importing ${ministryDocs.length} ministries...`);
-  // Remove the old 4 fallback-style ministries (ids 0-3 are reused; delete any extras)
-  for (const doc of ministryDocs) await client.createOrReplace(doc);
+  for (const doc of ministryDocs) await setDoc(doc);
   console.log("\n✅ Done. Published content for TEAM Lipa (Zion Point Church).");
   console.log("Live site should update within ~60 seconds.");
 }
