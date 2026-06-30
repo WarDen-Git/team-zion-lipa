@@ -3,6 +3,7 @@ import { Section } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
 import { MinistryCard } from "@/components/MinistryCard";
 import { ButtonLink } from "@/components/Button";
+import { Reveal } from "@/components/Reveal";
 import { getMinistries, type Ministry } from "@/sanity/queries";
 
 export const metadata: Metadata = {
@@ -60,8 +61,10 @@ export default async function MinistriesPage() {
       />
       <Section>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {ministries.map((m) => (
-            <MinistryCard key={m._id} ministry={m} />
+          {ministries.map((m, i) => (
+            <Reveal key={m._id} delay={(i % 3) * 80}>
+              <MinistryCard ministry={m} />
+            </Reveal>
           ))}
         </div>
 

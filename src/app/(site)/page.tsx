@@ -6,6 +6,7 @@ import { ButtonLink } from "@/components/Button";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { EventCard } from "@/components/EventCard";
 import { GallerySection } from "@/components/GallerySection";
+import { Reveal } from "@/components/Reveal";
 import {
   ClockIcon,
   ChevronRightIcon,
@@ -90,11 +91,12 @@ export default async function HomePage() {
         )}
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl"
+          className="animate-float pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-32 right-0 h-80 w-80 rounded-full bg-gold-500/10 blur-3xl"
+          className="animate-float pointer-events-none absolute -bottom-32 right-0 h-80 w-80 rounded-full bg-gold-500/10 blur-3xl"
+          style={{ animationDelay: "-4s" }}
         />
         <Container className="relative py-24 text-center sm:py-32">
           <p className="font-display text-sm uppercase tracking-[0.25em] text-gold-400 animate-fade-up">
@@ -155,7 +157,7 @@ export default async function HomePage() {
 
       {/* New here */}
       <Section>
-        <div className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 to-white p-8 ring-1 ring-brand-100 sm:p-12 md:grid-cols-2">
+        <Reveal className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 to-white p-8 ring-1 ring-brand-100 sm:p-12 md:grid-cols-2">
           <div>
             <SectionHeading
               eyebrow="First time?"
@@ -181,7 +183,7 @@ export default async function HomePage() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </Section>
 
       {/* What we're about */}
@@ -194,9 +196,10 @@ export default async function HomePage() {
           className="mb-12"
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map(({ Icon, title, text }) => (
-            <div
+          {values.map(({ Icon, title, text }, i) => (
+            <Reveal
               key={title}
+              delay={i * 80}
               className="rounded-2xl bg-white p-6 text-center ring-1 ring-slate-100 transition-shadow hover:shadow-md"
             >
               <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
@@ -208,7 +211,7 @@ export default async function HomePage() {
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
                 {text}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -274,8 +277,10 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {events.slice(0, 3).map((e) => (
-              <EventCard key={e._id} event={e} />
+            {events.slice(0, 3).map((e, i) => (
+              <Reveal key={e._id} delay={i * 80}>
+                <EventCard event={e} />
+              </Reveal>
             ))}
           </div>
         </Section>

@@ -3,6 +3,7 @@ import { Section, SectionHeading } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
 import { PortableText } from "@/components/PortableText";
 import { LeaderCard } from "@/components/LeaderCard";
+import { Reveal } from "@/components/Reveal";
 import { getPage, getLeaders } from "@/sanity/queries";
 
 export const metadata: Metadata = {
@@ -52,8 +53,10 @@ export default async function AboutPage() {
               description="The pastors and ministers who serve and shepherd our church family."
             />
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {leaders.map((leader) => (
-                <LeaderCard key={leader._id} leader={leader} />
+              {leaders.map((leader, i) => (
+                <Reveal key={leader._id} delay={(i % 4) * 80}>
+                  <LeaderCard leader={leader} />
+                </Reveal>
               ))}
             </div>
           </Section>

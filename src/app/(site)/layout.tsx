@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
+import { PageTransition } from "@/components/PageTransition";
 import { StructuredData } from "@/components/StructuredData";
 import { urlForImage } from "@/sanity/image";
 import { getSettings, getActiveAnnouncement } from "@/sanity/queries";
@@ -29,7 +30,7 @@ export default async function SiteLayout({
       <AnnouncementBar announcement={announcement} />
       <Header logoUrl={logoUrl} title={settings?.title || "Team Zion Lipa"} />
       <main id="content" className="min-h-[60vh]">
-        {children}
+        <PageTransition>{children}</PageTransition>
       </main>
       <Footer settings={settings} />
       <Analytics />
