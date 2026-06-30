@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "./Container";
+import { urlForImage } from "@/sanity/image";
 import type { SiteSettings } from "@/sanity/queries";
 import {
   FacebookIcon,
@@ -25,6 +26,10 @@ export function Footer({ settings }: { settings: SiteSettings | null }) {
   const social = settings?.social ?? {};
   const year = "2026";
 
+  const logoUrl = settings?.logo
+    ? urlForImage(settings.logo).height(140).url()
+    : null;
+
   const socials = [
     { url: social.facebook, Icon: FacebookIcon, label: "Facebook" },
     { url: social.youtube, Icon: YouTubeIcon, label: "YouTube" },
@@ -36,9 +41,18 @@ export function Footer({ settings }: { settings: SiteSettings | null }) {
     <footer className="mt-24 border-t border-slate-100 bg-slate-50">
       <Container className="grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="font-display text-xl font-bold text-brand-900">
-            Team Zion <span className="text-gold-700">Lipa</span>
-          </p>
+          {logoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={logoUrl}
+              alt="TEAM Lipa (Zion Point Church)"
+              className="h-16 w-auto"
+            />
+          ) : (
+            <p className="font-display text-xl font-bold text-brand-900">
+              Team Zion <span className="text-gold-700">Lipa</span>
+            </p>
+          )}
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-slate-600">
             {settings?.tagline ?? "A Christ-centered church in Lipa City."}
           </p>
