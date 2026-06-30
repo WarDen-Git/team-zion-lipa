@@ -6,6 +6,7 @@ import { ButtonLink } from "@/components/Button";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { EventCard } from "@/components/EventCard";
 import { GallerySection } from "@/components/GallerySection";
+import { NextService } from "@/components/NextService";
 import { Reveal } from "@/components/Reveal";
 import {
   ClockIcon,
@@ -132,8 +133,15 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      {/* Next-service countdown (parses service times; hidden if none parse) */}
+      <div id="welcome" className="bg-white">
+        <Container className="pt-10">
+          <NextService serviceTimes={allTimes} />
+        </Container>
+      </div>
+
       {/* Service times */}
-      <div id="welcome" className="border-b border-slate-100 bg-white">
+      <div className="border-b border-slate-100 bg-white">
         <Container className="flex flex-col gap-4 py-10 sm:flex-row sm:flex-wrap sm:justify-center">
           {serviceTimes.map((s, i) => (
             <div

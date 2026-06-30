@@ -102,6 +102,21 @@ export const siteSettings = defineType({
       description:
         "Temporary giving instructions (e.g. GCash / bank details) shown until full online giving launches.",
     }),
+    defineField({
+      name: "liveNow",
+      title: "We're Live Now",
+      type: "boolean",
+      initialValue: false,
+      description:
+        "Turn ON during a live stream to show a 'LIVE NOW' banner across the site. Remember to turn it OFF afterwards.",
+    }),
+    defineField({
+      name: "liveUrl",
+      title: "Live Stream Link",
+      type: "url",
+      description:
+        "The YouTube/Facebook link the LIVE NOW banner points to.",
+    }),
   ],
   preview: {
     prepare: () => ({ title: "Site Settings" }),

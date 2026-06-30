@@ -46,6 +46,8 @@ export type SiteSettings = {
     tiktok?: string;
   };
   givingNote?: string;
+  liveNow?: boolean;
+  liveUrl?: string;
 };
 
 export type Sermon = {
