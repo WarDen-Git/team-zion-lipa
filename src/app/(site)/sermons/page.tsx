@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
-import { SermonCard } from "@/components/SermonCard";
+import { SermonsBrowser } from "@/components/SermonsBrowser";
 import { ButtonLink } from "@/components/Button";
-import { Reveal } from "@/components/Reveal";
 import { PlayIcon } from "@/components/icons";
 import { getSermons, getSettings } from "@/sanity/queries";
 
@@ -44,13 +43,7 @@ export default async function SermonsPage() {
             )}
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {sermons.map((s, i) => (
-              <Reveal key={s._id} delay={(i % 3) * 80}>
-                <SermonCard sermon={s} />
-              </Reveal>
-            ))}
-          </div>
+          <SermonsBrowser sermons={sermons} />
         )}
       </Section>
     </>

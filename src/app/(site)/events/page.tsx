@@ -3,16 +3,36 @@ import { Section } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
 import { EventCard } from "@/components/EventCard";
 import { ButtonLink } from "@/components/Button";
+import { Reveal } from "@/components/Reveal";
 import { ClockIcon } from "@/components/icons";
-import { getUpcomingEvents } from "@/sanity/queries";
+import { getUpcomingEvents, type EventDoc } from "@/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Events",
   description: "Upcoming events and gatherings at Team Zion Lipa.",
 };
 
+// Group upcoming events (already sorted ascending) by "Month YYYY".
+function groupByMonth(events: EventDoc[]) {
+  const groups: { key: string; items: EventDoc[] }[] = [];
+  for (const e of events) {
+    const key = new Date(e.startDate).toLocaleString("en-PH", {
+      month: "long",
+      year: "numeric",
+    });
+    let g = groups.find((x) => x.key === key);
+    if (!g) {
+      g = { key, items: [] };
+      groups.push(g);
+    }
+    g.items.push(e);
+  }
+  return groups;
+}
+
 export default async function EventsPage() {
   const events = await getUpcomingEvents();
+  const groups = groupByMonth(events);
 
   return (
     <>
@@ -39,9 +59,21 @@ export default async function EventsPage() {
             </ButtonLink>
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((e) => (
-              <EventCard key={e._id} event={e} />
+          <div className="space-y-14">
+            {groups.map((group) => (
+              <div key={group.key}>
+                <h2 className="mb-6 flex items-center gap-3 font-display text-2xl font-semibold text-brand-900">
+                  <span className="h-px flex-none bg-gold-500" style={{ width: 24 }} />
+                  {group.key}
+                </h2>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {group.items.map((e, i) => (
+                    <Reveal key={e._id} delay={(i % 3) * 80}>
+                      <EventCard event={e} />
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         )}
