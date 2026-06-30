@@ -21,9 +21,17 @@ export default async function VisitPage() {
           { day: "Sunday", time: "4:00 PM", label: "Afternoon Service" },
         ];
 
-  const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    settings?.address || "Team Zion Lipa, Lipa City, Batangas",
-  )}`;
+  // Pull the exact pin coordinates out of the Google Maps embed URL
+  // (pattern: !2d<lng>!3d<lat>) so "Get Directions" points to the same spot as
+  // the map. Falls back to an address search if no embed/coords are set.
+  const coords = settings?.mapEmbedUrl?.match(
+    /!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/,
+  );
+  const directionsUrl = coords
+    ? `https://www.google.com/maps/dir/?api=1&destination=${coords[2]},${coords[1]}`
+    : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+        settings?.address || "Team Zion Lipa, Lipa City, Batangas",
+      )}`;
 
   const faqs = [
     {
