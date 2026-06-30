@@ -32,3 +32,8 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# source asset folders (originals live in Sanity / Google Drive, not git)
+/Photos
+/Logo
+

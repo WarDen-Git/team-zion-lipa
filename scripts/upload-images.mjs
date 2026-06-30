@@ -48,6 +48,11 @@ async function run() {
   await client
     .patch("siteSettings")
     .set({ heroImage: imageRef(hero), logo: imageRef(logo), gallery })
+    // Restore the map only if it's still missing (won't override a re-paste).
+    .setIfMissing({
+      mapEmbedUrl:
+        "https://maps.google.com/maps?q=13.964228727059021,121.16431116884179&z=18&output=embed",
+    })
     .commit();
 
   console.log("\n✅ Done. Hero, logo, and gallery set. Live within ~60s.");
