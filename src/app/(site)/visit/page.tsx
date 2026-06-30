@@ -21,17 +21,21 @@ export default async function VisitPage() {
           { day: "Sunday", time: "4:00 PM", label: "Afternoon Service" },
         ];
 
-  // Pull the exact pin coordinates out of the Google Maps embed URL
-  // (pattern: !2d<lng>!3d<lat>) so "Get Directions" points to the same spot as
-  // the map. Falls back to an address search if no embed/coords are set.
-  const coords = settings?.mapEmbedUrl?.match(
-    /!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/,
-  );
-  const directionsUrl = coords
-    ? `https://www.google.com/maps/dir/?api=1&destination=${coords[2]},${coords[1]}`
-    : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-        settings?.address || "Team Zion Lipa, Lipa City, Batangas",
-      )}`;
+  // Pull the exact pin coordinates out of whatever Google Maps URL is saved so
+  // "Get Directions" points to the same spot as the map. Supports the embed
+  // (...!2d<lng>!3d<lat>...), the q=<lat>,<lng> format, and @<lat>,<lng>.
+  // Falls back to an address search if no coordinates are found.
+  const embed = settings?.mapEmbedUrl ?? "";
+  const pb = embed.match(/!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/);
+  const qOrAt = embed.match(/[?&@]q=?(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+  const dest = pb
+    ? `${pb[2]},${pb[1]}` // pb gives lng then lat
+    : qOrAt
+      ? `${qOrAt[1]},${qOrAt[2]}` // q/@ give lat then lng
+      : encodeURIComponent(
+          settings?.address || "Team Zion Lipa, Lipa City, Batangas",
+        );
+  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${dest}`;
 
   const faqs = [
     {
