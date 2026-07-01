@@ -46,7 +46,7 @@ export function Footer({ settings }: { settings: SiteSettings | null }) {
             <img
               src={logoUrl}
               alt="TEAM Lipa (Zion Point Church)"
-              className="h-16 w-auto"
+              className="h-24 w-24 rounded-full object-cover shadow-sm"
             />
           ) : (
             <p className="font-display text-xl font-bold text-brand-900">
