@@ -112,6 +112,29 @@ export const siteSettings = defineType({
         "Temporary giving instructions (e.g. GCash / bank details) shown until full online giving launches.",
     }),
     defineField({
+      name: "givingMethods",
+      title: "Giving Methods",
+      type: "array",
+      description:
+        "Accounts shown on the Give page (each with copy buttons and an optional QR code).",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "platform", title: "Platform", type: "string" },
+            { name: "accountName", title: "Account Name", type: "string" },
+            { name: "accountNumber", title: "Account Number", type: "string" },
+            {
+              name: "qr",
+              title: "QR Code (optional)",
+              type: "image",
+            },
+          ],
+          preview: { select: { title: "platform", subtitle: "accountName" } },
+        },
+      ],
+    }),
+    defineField({
       name: "liveNow",
       title: "We're Live Now",
       type: "boolean",

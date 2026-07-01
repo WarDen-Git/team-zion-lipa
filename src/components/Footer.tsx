@@ -100,6 +100,7 @@ export function Footer({ settings }: { settings: SiteSettings | null }) {
               <li key={i}>
                 <span className="font-medium text-slate-700">{s.day}</span>{" "}
                 {s.time}
+                {s.label ? ` · ${s.label}` : ""}
               </li>
             ))}
             {(settings?.serviceTimes ?? []).length === 0 && (

@@ -27,7 +27,7 @@ const siteSettings = {
   tagline: "Connect to God. Connect to people.",
   address:
     "Block 13, Lot 16, St. Joseph Avenue, Villa de Lipa 1 Subdivision, Marauoy, Lipa City, Batangas 4217",
-  email: "lipateamzion@gmail.com",
+  email: "teamzionlipa@gmail.com",
   phone: "0994 179 2218 (Min. Hannah Grace “Honey” Dela Cruz)",
   serviceTimes: [
     { _key: "st1", day: "Sunday", time: "10:00 AM", label: "Regular Sunday Service" },
@@ -42,10 +42,7 @@ const siteSettings = {
     tiktok: "https://www.tiktok.com/@zionpointchurch",
   },
   givingNote:
-    "Online giving is coming soon. For now, you can give through:\n\n" +
-    "GCash: 0905 523 4790 (Cecile Del Monte)\n" +
-    "PSBank: 179110011773 (Zion Point Christian Church Inc.)\n\n" +
-    "You may also give in person during our services. Thank you for your generosity!",
+    "You may also give in person during our services. Thank you for your generosity! 🙏",
 };
 
 // ---- Portable Text helpers ----
@@ -121,12 +118,6 @@ const aboutBody = [
   p("Pastor Romeo and Cecile Del Monte have been pastoring for 12 years and are the Founding and Lead Pastors of Zion Point Christian Church Inc. (est. 2021). They have an evangelistic gift and travel to different places within and outside of the Philippines."),
   p("From 1989 to 2009 they lived in tents and trailers, traveling to various islands in the Philippines and holding large and small gatherings to share the Good News."),
   p("Both Pastor Romeo and Pastor Cecile completed their biblical studies at the International School of Ministries (ISOM) and a degree in Bachelor of Arts in Theology at The Kairos Theological Seminary International. Pastor Romeo also attended the School of Local Church and Ministries in Every Nation. He is also a singer and composer who uses his talent to glorify the Lord. Pastor Romeo and Pastor Cecile are happily married and have two children, Hannah and Hazel."),
-
-  h2("Board of Directors"),
-  li("Romeo “Romy” L. Del Monte — President"),
-  li("Cecile G. Del Monte"),
-  li("Alan Michael Dumangeng — Treasurer"),
-  li("Hannah Grace Dela Cruz — Corporate Secretary"),
 ];
 
 const aboutPage = {

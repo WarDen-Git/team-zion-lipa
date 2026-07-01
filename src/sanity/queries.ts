@@ -47,6 +47,13 @@ export type SiteSettings = {
     tiktok?: string;
   };
   givingNote?: string;
+  givingMethods?: {
+    _key?: string;
+    platform?: string;
+    accountName?: string;
+    accountNumber?: string;
+    qr?: import("sanity").Image;
+  }[];
   liveNow?: boolean;
   liveUrl?: string;
 };

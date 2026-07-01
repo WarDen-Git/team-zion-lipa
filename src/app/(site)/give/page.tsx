@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { PageHeader } from "@/components/PageHeader";
+import { GivingMethods } from "@/components/GivingMethods";
 import { getSettings } from "@/sanity/queries";
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 export default async function GivePage() {
   const settings = await getSettings();
+  const methods = settings?.givingMethods ?? [];
 
   return (
     <>
@@ -19,24 +21,39 @@ export default async function GivePage() {
         description="Your giving fuels our mission to reach Lipa City and beyond with the love of Christ."
       />
       <Section>
-        <div className="max-w-2xl rounded-2xl bg-gradient-to-br from-brand-50 to-white p-8 ring-1 ring-brand-100">
-          {settings?.givingNote ? (
-            <p className="whitespace-pre-line leading-relaxed text-slate-700">
-              {settings.givingNote}
+        {methods.length > 0 ? (
+          <>
+            <p className="mb-8 max-w-2xl text-slate-700">
+              You may give your tithes and offerings through any of the accounts
+              below. Tap <span className="font-semibold">Copy</span> to copy an
+              account name or number, or scan the QR code.
             </p>
-          ) : (
-            <>
-              <h2 className="font-display text-xl font-semibold text-brand-900">
-                Online giving is coming soon
-              </h2>
-              <p className="mt-3 leading-relaxed text-slate-700">
-                We&apos;re setting up secure online giving (GCash, Maya, and
-                card). In the meantime, you can give in person during our
-                services, or contact us for bank/GCash details.
+            <GivingMethods methods={methods} />
+            {settings?.givingNote && (
+              <p className="mt-8 max-w-2xl whitespace-pre-line text-sm text-slate-500">
+                {settings.givingNote}
               </p>
-            </>
-          )}
-        </div>
+            )}
+          </>
+        ) : (
+          <div className="max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-8">
+            {settings?.givingNote ? (
+              <p className="whitespace-pre-line leading-relaxed text-slate-700">
+                {settings.givingNote}
+              </p>
+            ) : (
+              <>
+                <h2 className="font-display text-xl font-semibold text-brand-900">
+                  Online giving is coming soon
+                </h2>
+                <p className="mt-3 leading-relaxed text-slate-700">
+                  In the meantime, you can give in person during our services,
+                  or contact us for bank/GCash details.
+                </p>
+              </>
+            )}
+          </div>
+        )}
       </Section>
     </>
   );
