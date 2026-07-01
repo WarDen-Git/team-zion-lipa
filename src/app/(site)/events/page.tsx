@@ -19,6 +19,7 @@ function groupByMonth(events: EventDoc[]) {
     const key = new Date(e.startDate).toLocaleString("en-PH", {
       month: "long",
       year: "numeric",
+      timeZone: "Asia/Manila",
     });
     let g = groups.find((x) => x.key === key);
     if (!g) {
