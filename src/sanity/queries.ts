@@ -33,6 +33,7 @@ export type SiteSettings = {
   tagline?: string;
   logo?: import("sanity").Image;
   heroImage?: import("sanity").Image;
+  heroImages?: import("sanity").Image[];
   gallery?: import("sanity").Image[];
   address?: string;
   mapEmbedUrl?: string;

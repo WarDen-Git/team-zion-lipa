@@ -34,6 +34,15 @@ export const siteSettings = defineType({
         "Optional. A wide photo (e.g. worship/congregation) shown behind the home page hero. Falls back to a gradient if empty.",
     }),
     defineField({
+      name: "heroImages",
+      title: "Home Hero Slideshow Images",
+      type: "array",
+      of: [{ type: "image", options: { hotspot: true } }],
+      options: { layout: "grid" },
+      description:
+        "Optional. Add 2+ wide photos to rotate as the hero background (cross-fade). If empty, the hero uses the Hero Background Image plus the Photo Gallery.",
+    }),
+    defineField({
       name: "gallery",
       title: "Photo Gallery",
       type: "array",

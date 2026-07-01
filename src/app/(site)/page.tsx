@@ -1,6 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
+import type { Image as SanityImage } from "sanity";
 import { Container } from "@/components/Container";
+import { HeroSlideshow } from "@/components/HeroSlideshow";
 import { Section, SectionHeading } from "@/components/Section";
 import { ButtonLink } from "@/components/Button";
 import { VideoEmbed } from "@/components/VideoEmbed";
@@ -59,32 +60,34 @@ export default async function HomePage() {
   const timed = allTimes.filter((s) => s.time && !/tba/i.test(s.time));
   const serviceTimes = (timed.length > 0 ? timed : allTimes).slice(0, 3);
 
-  const heroImg = settings?.heroImage
-    ? urlForImage(settings.heroImage).width(1920).height(1080).fit("crop").url()
-    : null;
+  // Build the hero slideshow pool: a curated list if set, otherwise the hero
+  // image plus the gallery photos. Capped and sized for the background.
+  const heroPool: SanityImage[] = [];
+  if (settings?.heroImages?.length) {
+    heroPool.push(...settings.heroImages);
+  } else {
+    if (settings?.heroImage) heroPool.push(settings.heroImage);
+    if (settings?.gallery) heroPool.push(...settings.gallery);
+  }
+  const heroSources = heroPool
+    .slice(0, 6)
+    .map((img) =>
+      urlForImage(img).width(2000).height(1125).fit("crop").url(),
+    );
 
   return (
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-brand-900 text-white">
-        {/* optional background photo */}
-        {heroImg && (
+        {/* rotating background photos */}
+        {heroSources.length > 0 && (
           <>
-            <Image
-              src={heroImg}
-              alt=""
-              fill
-              priority
-              className="object-cover"
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-brand-950/70"
-            />
+            <HeroSlideshow images={heroSources} />
+            <div aria-hidden className="absolute inset-0 bg-brand-950/70" />
           </>
         )}
-        {/* decorative gradients (also serve as fallback when no photo) */}
-        {!heroImg && (
+        {/* decorative gradient (also serves as fallback when no photos) */}
+        {heroSources.length === 0 && (
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-800 via-brand-900 to-brand-950"
