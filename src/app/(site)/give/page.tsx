@@ -25,8 +25,8 @@ export default async function GivePage() {
           <>
             <p className="mb-8 max-w-2xl text-slate-700">
               You may give your tithes and offerings through any of the accounts
-              below. Tap <span className="font-semibold">Copy</span> to copy an
-              account name or number, or scan the QR code.
+              below. Tap <span className="font-semibold">Copy</span> to copy the
+              account number, or scan the QR code.
             </p>
             <GivingMethods methods={methods} />
             {settings?.givingNote && (

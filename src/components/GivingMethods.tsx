@@ -5,7 +5,15 @@ import type { SiteSettings } from "@/sanity/queries";
 
 type Method = NonNullable<SiteSettings["givingMethods"]>[number];
 
-function Row({ label, value }: { label: string; value: string }) {
+function Row({
+  label,
+  value,
+  copyable = false,
+}: {
+  label: string;
+  value: string;
+  copyable?: boolean;
+}) {
   return (
     <div className="flex items-center justify-between gap-3 border-t border-slate-100 py-3">
       <div className="min-w-0">
@@ -14,7 +22,7 @@ function Row({ label, value }: { label: string; value: string }) {
         </p>
         <p className="truncate font-medium text-slate-900">{value}</p>
       </div>
-      <CopyButton value={value} />
+      {copyable && <CopyButton value={value} />}
     </div>
   );
 }
@@ -48,7 +56,7 @@ export function GivingMethods({ methods }: { methods: Method[] }) {
                 <Row label="Account Name" value={m.accountName} />
               )}
               {m.accountNumber && (
-                <Row label="Account Number" value={m.accountNumber} />
+                <Row label="Account Number" value={m.accountNumber} copyable />
               )}
             </div>
           </div>
