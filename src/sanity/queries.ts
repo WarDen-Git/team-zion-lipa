@@ -119,6 +119,14 @@ export const upcomingEventsQuery = groq`
     _id, title, slug, startDate, endDate, location, image, description, registrationUrl
   }`;
 
+export const eventBySlugQuery = groq`
+  *[_type == "event" && slug.current == $slug][0] {
+    _id, title, slug, startDate, endDate, location, image, description, registrationUrl
+  }`;
+
+export const eventSlugsQuery = groq`
+  *[_type == "event" && defined(slug.current)]{ "slug": slug.current }`;
+
 export const activeAnnouncementQuery = groq`
   *[_type == "announcement" && active == true] | order(publishedAt desc)[0] {
     _id, title, message, link
@@ -147,6 +155,12 @@ export const getSermons = () => sanityFetch<Sermon[]>(sermonsQuery, []);
 
 export const getUpcomingEvents = () =>
   sanityFetch<EventDoc[]>(upcomingEventsQuery, []);
+
+export const getEvent = (slug: string) =>
+  sanityFetch<EventDoc | null>(eventBySlugQuery, null, { slug });
+
+export const getEventSlugs = () =>
+  sanityFetch<{ slug: string }[]>(eventSlugsQuery, []);
 
 export const getActiveAnnouncement = () =>
   sanityFetch<Announcement | null>(activeAnnouncementQuery, null);
